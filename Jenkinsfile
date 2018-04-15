@@ -1,10 +1,10 @@
 node {
-    def testapp
+    def app
     stage('Clone Repository') {
       checkout scm
     }
     stage("Build image") {
-      testapp = docker.build("goloang/httpserver")
+      app = docker.build("goloang/httpserver")
     }
     stage('Test Image') {
       app.inside {
