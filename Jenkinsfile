@@ -1,6 +1,4 @@
-pipeline {
-  agent any
-  stages {
+node {
     def testapp
     stage('Clone Repository') {
       checkout scm
@@ -19,5 +17,4 @@ pipeline {
         app.push("latest")
       }
     }
-  }
 }
