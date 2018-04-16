@@ -12,7 +12,7 @@ node {
       }
     }
     stage('Push Image') {
-      docker.withRegistery('https://registry.hub.docker.com', 'docker-hub-credentials') {
+      withDockerRegistry(registry: [url: 'https://index.docker.io/v1/', credentialsId:'docker-hub-credentials']) {
         app.push("${env.BUILD_NUMBER}")
         app.push("latest")
       }
