@@ -4,7 +4,7 @@ node {
       checkout scm
     }
     stage("Build image") {
-      app = docker.build("goloang/httpserver")
+      app = docker.build("yadavsms/gohttpserver")
     }
     stage('Test Image') {
       app.inside {
