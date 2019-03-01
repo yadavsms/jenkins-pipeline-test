@@ -3,9 +3,9 @@ properties([parameters([string(name: 'goVersion', defaultValue: '1.11', descript
 standardBuild environment: "golang:${params.goVersion}",
     mainScript: '''
 go version
-go build -v httpserver.go
+go build -v greeting.go
 ''',
     postScript: '''
 ls -l
-./httpserver
+./greeting
 '''
