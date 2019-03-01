@@ -1,20 +1,11 @@
-node {
-    def app
-    stage('Clone Repository') {
-      checkout scm
-    }
-    stage("Build image") {
-      app = docker.build("yadavsms/gohttpserver")
-    }
-    stage('Test Image') {
-      app.inside {
-        sh "echo test passed"
-      }
-    }
-    stage('Push Image') {
-      withDockerRegistry(registry: [url: 'https://index.docker.io/v1/', credentialsId:'docker-hub-credentials']) {
-        app.push("${env.BUILD_NUMBER}")
-        app.push("latest")
-      }
-    }
-}
+@Library('github.com/yadavsms/jenkins-shared-lib') _
+properties([parameters([string(name: 'goVersion', defaultValue: '1.11', description: 'Which version of Go language to use.')])])
+standardBuild environment: "golang:${params.goVersion}",
+    mainScript: '''
+go version
+go build -v httpserver.go
+''',
+    postScript: '''
+ls -l
+./httpserver
+'''
